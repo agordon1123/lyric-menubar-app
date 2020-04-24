@@ -1,18 +1,7 @@
-import rumps
+from rumps import *
+from utils import *
 import os
-import subprocess
 import sys
-import json
-import spotipy
-import webbrowser
-import spotipy.util as util
-from json.decoder import JSONDecodeError
-
-# from decouple import config
-# username = config('SPOTIFY_USERNAME')
-# scope = config('SCOPE')
-# cientId = config('SPOTIFY_CLIENT_ID')
-# secretKey = config('SPOTIFY_CLIENT_SECRET')
 
 class LyricApp:
     def __init__(self):
@@ -20,35 +9,20 @@ class LyricApp:
             'app_name': 'Lyrical',
         }
         self.app = rumps.App(self.config['app_name'], '🎧')
+        rumps.debug_mode(True)
         
     def run(self):
         self.app.run()
 
-    def get_current_song(self):
-        # authenticate
-        try:
-            token = util.prompt_for_user_token(SPOTIFY_USERNAME, SCOPE)
-        except (AttributeError, JSONDecodeError):
-            os.remove(f'.cache-{SPOTIFY_USERNAME}')
-            token = util.prompt_for_user_token(SPOTIFY_USERNAME, SCOPE)
-        # create spotify object
-        spotifyObject = spotipy.Spotify(auth=token)
-        # capture device being played on
-        devices = spotifyObject.devices()
-        # print(json.dumps(devices, sort_keys=True, indent=4))
-        deviceId = devices['devices'][0]['id']
-        # capture track information
-        track = spotifyObject.current_user_playing_track()
-        # print(json.dumps(track, sort_keys=True, indent=4))
-        # print()
-        artist = track['item']['artists'][0]['name']
-        track = track['item']['name']
-        artist != "" and print('Currently playing ' + artist + ' - ' + track)
-        # capture user information
-        user = spotifyObject.current_user()
-        displayName = user['display_name']
-        follower = user['followers']['total']
-    
+    @clicked('Lyrics')
+    def button(self):
+        current = get_current_song()
+        artist = current[0]
+        song = current[1]
+        default_text = f'{artist} - {song}'
+        lyrics = get_lyrics(artist, song)
+        Window(lyrics, title=default_text, dimensions=(0,0)).run()
+
     def get_OS_info(self):
         f = os.popen('ps aux')
         target = ''
@@ -59,5 +33,4 @@ class LyricApp:
     
 if __name__ == '__main__':
     app = LyricApp()
-    # app.run()
-    app.get_current_song()
+    app.run()

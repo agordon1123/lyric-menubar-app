@@ -9,6 +9,8 @@ verify_ssl = true
 rumps = "*"
 py2app = "*"
 spotipy = "*"
+requests = "*"
+bs4 = "*"
 python-decouple = "*"
 
 [requires]
