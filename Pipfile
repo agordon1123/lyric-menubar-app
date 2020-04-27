@@ -12,6 +12,7 @@ spotipy = "*"
 requests = "*"
 bs4 = "*"
 python-decouple = "*"
+pyinstaller = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cbeb4d45ede888a2b70712876f389994574831de702ff2bd9e5f8e1b79ee42d7"
+            "sha256": "727d08dd72029d56fcc1c0630839fa9b638e044a4a077b9ab94530ee15b7932d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -80,6 +80,13 @@
             ],
             "index": "pypi",
             "version": "==0.21"
+        },
+        "pyinstaller": {
+            "hashes": [
+                "sha256:3730fa80d088f8bb7084d32480eb87cbb4ddb64123363763cf8f2a1378c1c4b7"
+            ],
+            "index": "pypi",
+            "version": "==3.6"
         },
         "pyobjc-core": {
             "hashes": [
